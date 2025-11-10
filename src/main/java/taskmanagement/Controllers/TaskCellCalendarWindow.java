@@ -1,48 +1,65 @@
-package taskmanagement.Controllers;
+package taskmanagement.controllers;
 
-// Custom cell cho các list view trong cửa sổ chính
-
-import taskmanagement.Models.Task;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.HBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import taskmanagement.models.Task;
 
 public class TaskCellCalendarWindow extends ListCell<Task> {
-	@Override
-	protected void updateItem(Task task, boolean empty) {
-		super.updateItem(task, empty);
-		if (empty || task == null) {
-			setGraphic(null);
-		} else {
-			Label taskNameLabel = new Label();
-			HBox container;
-			
-			taskNameLabel.setWrapText(true);
-			taskNameLabel.setText(task.getTaskName());
-			taskNameLabel.setTextAlignment(TextAlignment.CENTER);
-			taskNameLabel.setMaxWidth(getListView().getWidth() - 40);
-			
-			container = new HBox(taskNameLabel);
-			container.setAlignment(Pos.CENTER);
-			container.setPadding(new Insets(5));
-			
-			// Đặt màu tương ứng với độ quan trong
-			BackgroundFill backgroundFill = switch (task.getImportanceLevel()) {
-				case LOW -> new BackgroundFill(Color.web("#A8E6CF"), new CornerRadii(5), Insets.EMPTY);
-				case MEDIUM -> new BackgroundFill(Color.web("#FFD54F"), new CornerRadii(5), Insets.EMPTY);
-				case HIGH -> new BackgroundFill(Color.web("#FFAB91"), new CornerRadii(5), Insets.EMPTY);
-			};
-			
-			container.setBackground(new Background(backgroundFill));
-			
-			setGraphic(container);
-		}
-	}
+
+    @Override
+    protected void updateItem(Task task, boolean empty) {
+        super.updateItem(task, empty);
+
+        if (empty || task == null) {
+            setGraphic(null);
+        } else {
+            // Tạo nhãn và container
+            Label taskNameLabel = new Label(task.getTaskName());
+            taskNameLabel.setWrapText(true);
+            taskNameLabel.setTextAlignment(TextAlignment.CENTER);
+            taskNameLabel.setMaxWidth(getListView().getWidth() - 40);
+
+            HBox container = new HBox(taskNameLabel);
+            container.setAlignment(Pos.CENTER);
+            container.setPadding(new Insets(5));
+
+            // Màu nền và viền dựa trên mức độ ưu tiên
+            Color backgroundColor;
+            Color borderColor;
+
+            switch (task.getImportanceLevel()) {
+                case LOW -> {
+                    backgroundColor = Color.web("#A8E6CF"); // xanh nhạt
+                    borderColor = Color.web("#00FF00");    // viền xanh
+                }
+                case MEDIUM -> {
+                    backgroundColor = Color.web("#FFFF99"); // vàng nhạt
+                    borderColor = Color.web("#FF9800");    // viền cam
+                }
+                case HIGH -> {
+                    backgroundColor = Color.web("#FFAB91"); // cam đỏ
+                    borderColor = Color.web("#FF0000");    // viền đỏ
+                }
+                default -> {
+                    backgroundColor = Color.LIGHTGRAY;
+                    borderColor = Color.GRAY;
+                }
+            }
+
+            // Set background và border
+            container.setBackground(new Background(
+                    new BackgroundFill(backgroundColor, new CornerRadii(5), Insets.EMPTY)
+            ));
+            container.setBorder(new Border(
+                    new BorderStroke(borderColor, BorderStrokeStyle.SOLID, new CornerRadii(5), new BorderWidths(2))
+            ));
+
+            setGraphic(container);
+        }
+    }
 }

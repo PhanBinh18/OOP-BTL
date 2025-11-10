@@ -1,4 +1,4 @@
-package taskmanagement.Controllers;
+package taskmanagement.controllers;
 
 /* Đặt 7 list view tương ứng với 7 ngày trong tuần
 Tuần hiện tại sẽ được thay đổi bởi 2 nút next và previous hoặc chọn trong date picker
@@ -6,94 +6,123 @@ Khi tuần hiện tại thay đổi các task trong tuần được nạp lại 
 Đặt sự kiện khi click vào list view nào sẽ chuyển sang cửa sổ ngày tương ứng
 */
 
-import taskmanagement.Models.Calendar;
-import taskmanagement.Models.Day;
-import taskmanagement.Models.Task;
-import taskmanagement.AppManager;
-
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import taskmanagement.models.Calendar;
+import taskmanagement.models.Day;
+import taskmanagement.models.Task;
+import taskmanagement.AppManager;
+import taskmanagement.utils.BackgroundManager;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.stream.IntStream;
 
 public class CalendarWindowController implements Initializable {
+
     @FXML
     private AnchorPane rootPane;
     @FXML
-    private ListView<Task> mondayListView, tuesdayListView, wednesdayListView, thursdayListView, fridayListView, saturdayListView, sundayListView;
+    private ListView<Task> mondayListView, tuesdayListView, wednesdayListView,
+            thursdayListView, fridayListView, saturdayListView, sundayListView;
     @FXML
-    private Label mondayLabel, tuesdayLabel, wednesdayLabel, thursdayLabel, fridayLabel, saturdayLabel, sundayLabel;
+    private Label mondayLabel, tuesdayLabel, wednesdayLabel, thursdayLabel,
+            fridayLabel, saturdayLabel, sundayLabel;
     @FXML
-    private Button nextButton, previousButton;
+    private Button nextButton, previousButton, deleteAllButton;
     @FXML
     private DatePicker datePicker;
-    
+
     private Calendar calendar;
     private boolean isUpdatingDatePicker = false;
-    
+
     private List<ListView<Task>> listViews;
     private List<Label> labels;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         calendar = AppManager.calendar;
         datePicker.setValue(calendar.getStartOfCurrentWeek());
-        
+
         listViews = List.of(mondayListView, tuesdayListView, wednesdayListView,
-            thursdayListView, fridayListView, saturdayListView, sundayListView);
+                thursdayListView, fridayListView, saturdayListView, sundayListView);
         labels = List.of(mondayLabel, tuesdayLabel, wednesdayLabel,
-            thursdayLabel, fridayLabel, saturdayLabel, sundayLabel);
-        
+                thursdayLabel, fridayLabel, saturdayLabel, sundayLabel);
+
         setupListViewCellFactories();
         updateListViews();
         setupListViewWidths();
-        // Lắng nghe khi nào thay đổi kích thước cửa sổ để tính toán lại kích thước list view
+
+        // Cập nhật khi thay đổi kích thước cửa sổ
         rootPane.widthProperty().addListener((obs, oldWidth, newWidth) -> setupListViewWidths());
+
+        // Áp dụng nền
+        BackgroundManager.applyBackground(rootPane);
     }
-    
+
     private void setupListViewCellFactories() {
         listViews.forEach(listView -> listView.setCellFactory(_ -> new TaskCellCalendarWindow()));
     }
-    
-   public void updateListViews() {
+
+    public void updateListViews() {
         List<Day> dayList = calendar.getCurrentWeek().getDayList();
         IntStream.range(0, listViews.size()).forEach(i ->
-            listViews.get(i).setItems(dayList.get(i).getTaskObservableList()));
+                listViews.get(i).setItems(dayList.get(i).getTaskObservableList()));
+
+        updateDayLabels();
+        highlightToday();
     }
-    
-    /* Tính toán kích thước list view và label sao cho fit với chiều ngang của cửa sổ
-    và cách 1 cạnh trên 1 khoảng cố định */
+
+    private void updateDayLabels() {
+        List<LocalDate> days = calendar.getCurrentWeek().getDayList()
+                .stream().map(Day::getDate).toList();
+
+        java.time.format.DateTimeFormatter formatter =
+                java.time.format.DateTimeFormatter.ofPattern("dd/MM");
+
+        String[] weekdays = {"Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ Nhật"};
+
+        IntStream.range(0, labels.size()).forEach(i -> {
+            labels.get(i).setText(weekdays[i] + " - " + days.get(i).format(formatter));
+        });
+    }
+
+    private void highlightToday() {
+        LocalDate today = LocalDate.now();
+        List<Day> dayList = calendar.getCurrentWeek().getDayList();
+
+        IntStream.range(0, labels.size()).forEach(i -> {
+            LocalDate date = dayList.get(i).getDate();
+            if (date.equals(today)) {
+                labels.get(i).setStyle("-fx-background-color: #4CAF50; -fx-font-weight: bold; -fx-border-color: black;");
+            } else {
+                labels.get(i).setStyle("-fx-background-color: #FFFFFF; -fx-font-weight: bold; -fx-border-color: black;");
+            }
+        });
+    }
+
     private void setupListViewWidths() {
         double width = rootPane.getWidth() / listViews.size();
-        
         IntStream.range(0, listViews.size()).forEach(i -> {
             double x = i * width;
             labels.get(i).setPrefWidth(width);
             labels.get(i).setLayoutX(x);
             labels.get(i).setLayoutY(80);
-            
+
             listViews.get(i).setPrefWidth(width);
             listViews.get(i).setLayoutX(x);
             listViews.get(i).setLayoutY(110);
         });
     }
-    
-    // Chuyển sang cửa sổ ngày tương ứng khi list view được click
-    @FXML
-    public void handleDayClick(int dayIndex) throws IOException {
-        AppManager.selectedDay = calendar.getCurrentWeek().getDayList().get(dayIndex);
-        AppManager.switchToDayWindow();
-        listViews.get(dayIndex).getSelectionModel().clearSelection();
-    }
+
     @FXML
     public void mondayClicked() throws IOException { handleDayClick(0); }
     @FXML
@@ -108,9 +137,13 @@ public class CalendarWindowController implements Initializable {
     public void saturdayClicked() throws IOException { handleDayClick(5); }
     @FXML
     public void sundayClicked() throws IOException { handleDayClick(6); }
-    
-    /* biến bool isUpdatingDatePicker theo dõi liệu date picker bị thay đổi
-    do được pick trực tiếp hay do nút next và previous */
+
+    private void handleDayClick(int dayIndex) throws IOException {
+        AppManager.selectedDay = calendar.getCurrentWeek().getDayList().get(dayIndex);
+        AppManager.switchToDayWindow();
+        listViews.get(dayIndex).getSelectionModel().clearSelection();
+    }
+
     @FXML
     private void handleChangeDate() {
         if (!isUpdatingDatePicker && datePicker.getValue() != null) {
@@ -118,21 +151,70 @@ public class CalendarWindowController implements Initializable {
             updateListViews();
         }
     }
+
     @FXML
     private void handleNextButtonAction() {
         calendar.setToNextWeek();
         updateDatePicker();
         updateListViews();
     }
+
     @FXML
     private void handlePreviousButtonAction() {
         calendar.setToPreviousWeek();
         updateDatePicker();
         updateListViews();
     }
+
     private void updateDatePicker() {
         isUpdatingDatePicker = true;
         datePicker.setValue(calendar.getStartOfCurrentWeek());
         isUpdatingDatePicker = false;
+    }
+
+    @FXML
+    private void handleUploadBackground() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Chọn ảnh làm nền");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.jpeg")
+        );
+
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null) {
+            try {
+                String imagePath = file.toURI().toString();
+                BackgroundManager.saveBackground(imagePath);
+                BackgroundManager.applyBackground(rootPane);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    private void handleDeleteAllTasks() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Xác nhận Xóa");
+        alert.setHeaderText("BẠN CÓ CHẮC CHẮN KHÔNG?");
+        alert.setContentText("Hành động này sẽ XÓA VĨNH VIỄN tất cả các công việc đã lưu.\nKhông thể hoàn tác.");
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                calendar.deleteAllData();
+                updateListViews();
+                Alert doneAlert = new Alert(Alert.AlertType.INFORMATION);
+                doneAlert.setTitle("Hoàn tất");
+                doneAlert.setHeaderText("Đã xóa toàn bộ dữ liệu.");
+                doneAlert.showAndWait();
+            } catch (IOException e) {
+                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
+                errorAlert.setTitle("Lỗi");
+                errorAlert.setHeaderText("Không thể xóa dữ liệu.");
+                errorAlert.setContentText(e.getMessage());
+                errorAlert.showAndWait();
+            }
+        }
     }
 }
