@@ -1,4 +1,4 @@
-package taskmanagement.models;
+package taskmanagement.Models;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -12,7 +12,7 @@ public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public enum State { READY, FOCUS, BREAK, STOPPED, FAIL, DONE }
-    public enum Priority { LOW, MEDIUM, HIGH }
+    public enum Priority { Thấp, Trung, Cao }
 
     private final String taskName;
     private final LocalTime startTime;

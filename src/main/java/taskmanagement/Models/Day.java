@@ -1,4 +1,4 @@
-package taskmanagement.models;
+package taskmanagement.Models;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,7 +40,7 @@ public class Day implements Serializable {
 
     private void sortTasksByTime() {
         // Sử dụng tên đầy đủ Task để tránh xung đột import
-        taskObservableList.sort(Comparator.comparing(taskmanagement.models.Task::getStartTime));
+        taskObservableList.sort(Comparator.comparing(taskmanagement.Models.Task::getStartTime));
     }
 
     public void removeTask(Task task) {

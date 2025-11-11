@@ -1,4 +1,4 @@
-package taskmanagement.controllers;
+package taskmanagement.Controllers;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,7 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import taskmanagement.models.Task;
+import taskmanagement.Models.Task;
 
 public class TaskCellCalendarWindow extends ListCell<Task> {
 
@@ -33,15 +33,15 @@ public class TaskCellCalendarWindow extends ListCell<Task> {
             Color borderColor;
 
             switch (task.getImportanceLevel()) {
-                case LOW -> {
+                case Thấp -> {
                     backgroundColor = Color.web("#A8E6CF"); // xanh nhạt
                     borderColor = Color.web("#00FF00");    // viền xanh
                 }
-                case MEDIUM -> {
+                case Trung -> {
                     backgroundColor = Color.web("#FFFF99"); // vàng nhạt
                     borderColor = Color.web("#FF9800");    // viền cam
                 }
-                case HIGH -> {
+                case Cao -> {
                     backgroundColor = Color.web("#FFAB91"); // cam đỏ
                     borderColor = Color.web("#FF0000");    // viền đỏ
                 }

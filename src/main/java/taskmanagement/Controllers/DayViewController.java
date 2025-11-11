@@ -1,4 +1,4 @@
-package taskmanagement.controllers;
+package taskmanagement.Controllers;
 
 /* Sử dụng list view để hiện thị các task có trong ngày
 Xử lý sự kiện với 3 nút ADD, DELETE, START cho task được select trong list view
@@ -19,8 +19,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
-import taskmanagement.models.Day;
-import taskmanagement.models.Task;
+import taskmanagement.Models.Day;
+import taskmanagement.Models.Task;
 import taskmanagement.AppManager;
 import taskmanagement.utils.BackgroundManager;
 
@@ -229,10 +229,10 @@ public class DayViewController implements Initializable {
     }
 
     private void addImportanceLegend() {
-        Label text = new Label("Mức độ ưu tiên");
+        Label text = new Label("Mức ưu tiên");
 
         HBox lowPriority = createPriorityBox("THẤP", Color.web("#A8E6CF"));
-        HBox mediumPriority = createPriorityBox("TRUNG BÌNH", Color.web("#FFD54F"));
+        HBox mediumPriority = createPriorityBox("TRUNG", Color.web("#FFD54F"));
         HBox highPriority = createPriorityBox("CAO", Color.web("#FFAB91"));
 
         lowPriority.setPadding(new Insets(5));

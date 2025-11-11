@@ -1,9 +1,9 @@
 package taskmanagement;
 
-import taskmanagement.controllers.StatusUpdateService;
-import taskmanagement.models.Calendar;
-import taskmanagement.models.Day;
-import taskmanagement.models.Task;
+import taskmanagement.Controllers.StatusUpdateService;
+import taskmanagement.Models.Calendar;
+import taskmanagement.Models.Day;
+import taskmanagement.Models.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -50,15 +50,53 @@ public class AppManager {
 
     public static void switchToMainWindow() {
         stopStatusService();
+
+        // Lưu lại kích thước hiện tại của stage
+        double width = stage.getWidth();
+        double height = stage.getHeight();
+        boolean isMaximized = stage.isMaximized();
+
+        // Gán lại scene chính
         stage.setScene(mainWindow);
+
+        // Giữ nguyên kích thước / trạng thái phóng to
+        stage.setWidth(width);
+        stage.setHeight(height);
+        stage.setMaximized(isMaximized);
+
         stage.show();
     }
 
     private static void loadAndSetScene(String fxmlPath) throws IOException {
+//        double width = stage.getWidth();
+//        double height = stage.getHeight();
+//        boolean isMaximized = stage.isMaximized();
+//
+//        FXMLLoader loader = new FXMLLoader(AppManager.class.getResource(fxmlPath));
+//        Parent root = loader.load();
+//        Scene scene = new Scene(root);
+//        stage.setScene(scene);
+//        stage.setMaximized(isMaximized);
+//        stage.show();
+        double width = 800;  // fallback mặc định
+        double height = 600;
+        boolean isMaximized = stage.isMaximized();
+
+        // Nếu đang có scene hiện tại, lấy kích thước thực tế từ đó
+        if (stage.getScene() != null) {
+            width = stage.getScene().getWidth();
+            height = stage.getScene().getHeight();
+        }
+
         FXMLLoader loader = new FXMLLoader(AppManager.class.getResource(fxmlPath));
         Parent root = loader.load();
-        Scene scene = new Scene(root);
+
+        Scene scene = new Scene(root, width, height);
         stage.setScene(scene);
+
+        // Giữ trạng thái phóng to nếu trước đó có
+        stage.setMaximized(isMaximized);
+
         stage.show();
     }
 }

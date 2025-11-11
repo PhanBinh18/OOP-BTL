@@ -1,6 +1,6 @@
-package taskmanagement.controllers;
+package taskmanagement.Controllers;
 
-import taskmanagement.models.Task;
+import taskmanagement.Models.Task;
 import taskmanagement.AppManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
@@ -38,9 +38,9 @@ public class TaskCellDayWindow extends ListCell<Task> {
 
             // Màu nền dựa trên mức độ quan trọng
             BackgroundFill backgroundFill = switch (item.getImportanceLevel()) {
-                case LOW -> new BackgroundFill(Color.web("#A8E6CF"), new CornerRadii(5), Insets.EMPTY);
-                case MEDIUM -> new BackgroundFill(Color.web("#FFD54F"), new CornerRadii(5), Insets.EMPTY);
-                case HIGH -> new BackgroundFill(Color.web("#FFAB91"), new CornerRadii(5), Insets.EMPTY);
+                case Thấp -> new BackgroundFill(Color.web("#A8E6CF"), new CornerRadii(5), Insets.EMPTY);
+                case Trung -> new BackgroundFill(Color.web("#FFD54F"), new CornerRadii(5), Insets.EMPTY);
+                case Cao -> new BackgroundFill(Color.web("#FFAB91"), new CornerRadii(5), Insets.EMPTY);
             };
             cell.setBackground(new Background(backgroundFill));
 
