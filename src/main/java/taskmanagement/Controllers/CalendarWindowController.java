@@ -192,29 +192,4 @@ public class CalendarWindowController implements Initializable {
         }
     }
 
-    @FXML
-    private void handleDeleteAllTasks() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Xác nhận Xóa");
-        alert.setHeaderText("BẠN CÓ CHẮC CHẮN KHÔNG?");
-        alert.setContentText("Hành động này sẽ XÓA VĨNH VIỄN tất cả các công việc đã lưu.\nKhông thể hoàn tác.");
-
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            try {
-                calendar.deleteAllData();
-                updateListViews();
-                Alert doneAlert = new Alert(Alert.AlertType.INFORMATION);
-                doneAlert.setTitle("Hoàn tất");
-                doneAlert.setHeaderText("Đã xóa toàn bộ dữ liệu.");
-                doneAlert.showAndWait();
-            } catch (IOException e) {
-                Alert errorAlert = new Alert(Alert.AlertType.ERROR);
-                errorAlert.setTitle("Lỗi");
-                errorAlert.setHeaderText("Không thể xóa dữ liệu.");
-                errorAlert.setContentText(e.getMessage());
-                errorAlert.showAndWait();
-            }
-        }
-    }
 }
