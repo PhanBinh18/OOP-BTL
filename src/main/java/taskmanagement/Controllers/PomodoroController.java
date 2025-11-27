@@ -1,11 +1,5 @@
 package taskmanagement.Controllers;
 
-/*
-Tạo 1 bộ đếm thời gian đếm ngược session
-Xử lý sự kiện 2 nút start và stop task
-Thêm 1 bộ phát nhạc bằng media player và nạp các bài hát vào 1 hộp chọn
-Cảnh báo nếu thoát trước khi hoàn thành task
-*/
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;

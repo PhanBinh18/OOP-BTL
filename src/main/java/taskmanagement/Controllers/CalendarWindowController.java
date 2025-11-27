@@ -1,10 +1,5 @@
 package taskmanagement.Controllers;
 
-/* Đặt 7 list view tương ứng với 7 ngày trong tuần
-Tuần hiện tại sẽ được thay đổi bởi 2 nút next và previous hoặc chọn trong date picker
-Khi tuần hiện tại thay đổi các task trong tuần được nạp lại vào các list view
-Đặt sự kiện khi click vào list view nào sẽ chuyển sang cửa sổ ngày tương ứng
-*/
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

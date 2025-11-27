@@ -19,8 +19,6 @@ public class Day implements Serializable {
 
     private final LocalDate date;
 
-    /* Dùng observable list để list view phần UI tự động cập nhật danh sách các task
-       Observable list không lưu được nên để transient và tạo 1 list khác chỉ để lưu */
     private transient ObservableList<Task> taskObservableList;
     private List<Task> serializableList;
 
@@ -39,7 +37,6 @@ public class Day implements Serializable {
     }
 
     private void sortTasksByTime() {
-        // Sử dụng tên đầy đủ Task để tránh xung đột import
         taskObservableList.sort(Comparator.comparing(taskmanagement.Models.Task::getStartTime));
     }
 

@@ -1,10 +1,5 @@
 package taskmanagement.Controllers;
 
-/* Sử dụng list view để hiện thị các task có trong ngày
-Xử lý sự kiện với 3 nút ADD, DELETE, START cho task được select trong list view
-Tạo dialog để xử lý việc thêm task
-*/
-
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -52,14 +47,12 @@ public class DayViewController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         day = AppManager.selectedDay;
 
-        // Đặt custom cell và set item cho list view
         listView.setCellFactory(_ -> new TaskCellDayWindow());
         listView.setItems(day.getTaskObservableList());
 
         dateLabel.setText(day.getDate().toString());
         dateLabel.setFont(Font.font("System", FontWeight.BOLD, 12));
 
-        // Áp dụng background (từ nhánh feature)
         BackgroundManager.applyBackground(rootPane);
 
         updateCompletion();
