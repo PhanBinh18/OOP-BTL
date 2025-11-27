@@ -1,6 +1,6 @@
-package taskmanagement.controllers;
+package taskmanagement.Controllers;
 
-import taskmanagement.models.Task;
+import taskmanagement.Models.Task;
 import taskmanagement.AppManager;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;

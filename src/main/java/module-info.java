@@ -18,11 +18,11 @@ module taskmanagement {
 
     // Mở cả hai package cho FXMLLoader
     opens taskmanagement to javafx.fxml;
-    opens taskmanagement.controllers to javafx.fxml;
-    opens taskmanagement.models to javafx.fxml;
+    opens taskmanagement.Controllers to javafx.fxml;
+    opens taskmanagement.Models to javafx.fxml;
 
     // Xuất các package để dùng từ bên ngoài module
     exports taskmanagement;
-    exports taskmanagement.controllers;
-    exports taskmanagement.models;
+    exports taskmanagement.Controllers;
+    exports taskmanagement.Models;
 }

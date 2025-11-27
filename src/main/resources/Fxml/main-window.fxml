@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 <AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="415.0" prefWidth="700.0" stylesheets="@../Styles/back-ground-style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="taskmanagement.controllers.CalendarWindowController">
+            fx:controller="taskmanagement.Controllers.CalendarWindowController">
 
     <!-- Top bar with buttons and DatePicker -->
     <Button fx:id="previousButton"
