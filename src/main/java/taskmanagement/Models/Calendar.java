@@ -57,24 +57,6 @@ public class Calendar implements Serializable {
                 weekStart.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ".dat").toString();
     }
 
-    // --- Thêm tính năng xóa toàn bộ dữ liệu ---
-    public void deleteAllData() throws IOException {
-        weeks.clear();
-        Path directoryPath = Paths.get(System.getProperty("user.home"), "Documents", "saved-weeks");
-
-        if (Files.exists(directoryPath) && Files.isDirectory(directoryPath)) {
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(directoryPath, "*.dat")) {
-                for (Path file : stream) {
-                    Files.delete(file);
-                }
-            }
-        }
-
-        // Tải lại tuần hiện tại
-        this.startOfCurrentWeek = LocalDate.now().with(DayOfWeek.MONDAY);
-        updateWeekMap();
-    }
-
     public void setToNextWeek() {
         startOfCurrentWeek = startOfCurrentWeek.plusWeeks(1);
         updateWeekMap();
