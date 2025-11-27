@@ -1,4 +1,4 @@
-package taskmanagement.Controllers;
+package taskmanagement.controllers;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -7,7 +7,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
-import taskmanagement.Models.Task;
+import taskmanagement.models.Task;
 
 public class TaskCellCalendarWindow extends ListCell<Task> {
 

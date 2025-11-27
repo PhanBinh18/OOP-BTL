@@ -8,10 +8,10 @@
 
 
 <AnchorPane fx:id="rootPane" prefHeight="520.0" prefWidth="450.0"
-            style="-fx-background-color: linear-gradient(to bottom, #f4f4f4, #ececec);"
+            stylesheets="@../Styles/back-ground-style.css"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="taskmanagement.Controllers.PomodoroController">
+            fx:controller="taskmanagement.controllers.PomodoroController">
 
     <!-- Nút Thoát -->
     <Button fx:id="exitButton"

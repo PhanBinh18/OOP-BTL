@@ -1,4 +1,4 @@
-package taskmanagement.Controllers;
+package taskmanagement.controllers;
 
 /* Đặt 7 list view tương ứng với 7 ngày trong tuần
 Tuần hiện tại sẽ được thay đổi bởi 2 nút next và previous hoặc chọn trong date picker
@@ -11,9 +11,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import taskmanagement.Models.Calendar;
-import taskmanagement.Models.Day;
-import taskmanagement.Models.Task;
+import taskmanagement.models.Calendar;
+import taskmanagement.models.Day;
+import taskmanagement.models.Task;
 import taskmanagement.AppManager;
 import taskmanagement.utils.BackgroundManager;
 

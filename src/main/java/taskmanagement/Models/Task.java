@@ -1,4 +1,4 @@
-package taskmanagement.Models;
+package taskmanagement.models;
 
 import java.io.Serial;
 import java.io.Serializable;

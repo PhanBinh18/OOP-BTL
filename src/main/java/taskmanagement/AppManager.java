@@ -1,9 +1,9 @@
 package taskmanagement;
 
-import taskmanagement.Controllers.StatusUpdateService;
-import taskmanagement.Models.Calendar;
-import taskmanagement.Models.Day;
-import taskmanagement.Models.Task;
+import taskmanagement.controllers.StatusUpdateService;
+import taskmanagement.models.Calendar;
+import taskmanagement.models.Day;
+import taskmanagement.models.Task;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -68,16 +68,6 @@ public class AppManager {
     }
 
     private static void loadAndSetScene(String fxmlPath) throws IOException {
-//        double width = stage.getWidth();
-//        double height = stage.getHeight();
-//        boolean isMaximized = stage.isMaximized();
-//
-//        FXMLLoader loader = new FXMLLoader(AppManager.class.getResource(fxmlPath));
-//        Parent root = loader.load();
-//        Scene scene = new Scene(root);
-//        stage.setScene(scene);
-//        stage.setMaximized(isMaximized);
-//        stage.show();
         double width = 800;  // fallback mặc định
         double height = 600;
         boolean isMaximized = stage.isMaximized();

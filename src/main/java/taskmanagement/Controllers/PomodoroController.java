@@ -1,4 +1,4 @@
-package taskmanagement.Controllers;
+package taskmanagement.controllers;
 
 /*
 Tạo 1 bộ đếm thời gian đếm ngược session
@@ -17,8 +17,8 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
-import taskmanagement.Models.Music;
-import taskmanagement.Models.Task;
+import taskmanagement.models.Music;
+import taskmanagement.models.Task;
 import taskmanagement.AppManager;
 import taskmanagement.utils.BackgroundManager;
 

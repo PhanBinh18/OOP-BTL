@@ -1,6 +1,6 @@
 package taskmanagement;
 
-import taskmanagement.Models.Calendar;
+import taskmanagement.models.Calendar;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

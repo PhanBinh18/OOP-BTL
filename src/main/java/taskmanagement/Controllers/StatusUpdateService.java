@@ -1,6 +1,6 @@
-package taskmanagement.Controllers;
+package taskmanagement.controllers;
 
-import taskmanagement.Models.Day;
+import taskmanagement.models.Day;
 import taskmanagement.AppManager;
 
 import javafx.application.Platform;

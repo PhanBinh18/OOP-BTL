@@ -11,7 +11,7 @@
             stylesheets="@../Styles/back-ground-style.css"
             xmlns="http://javafx.com/javafx/17.0.12"
             xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="taskmanagement.Controllers.DayViewController">
+            fx:controller="taskmanagement.controllers.DayViewController">
 
     <!-- ListView hiển thị các Task -->
     <ListView fx:id="listView" layoutX="98.0" layoutY="70.0"
